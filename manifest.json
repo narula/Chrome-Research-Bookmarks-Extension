@@ -1,0 +1,16 @@
+{
+  "name": "Research Bookmarks",
+  "version": "1.0",
+  "description": "Create bookmarks in subfolders of a research folder.",
+  "browser_action": {
+    "default_icon": "favicon.ico"
+  },
+  "browser_action": {
+    "default_icon": "favicon.ico",
+    "popup": "popup.html"
+  },
+  "permissions": [
+    "bookmarks",
+	"tabs"
+  ]
+}
