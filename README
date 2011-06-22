@@ -1,0 +1,3 @@
+Chrome extension to tag bookmarks in a research folder hierarchy.
+Will use the "research" subfolder of the Bookmarks Bar, and create one
+if it doesn't exist.
