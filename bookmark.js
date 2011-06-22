@@ -1,7 +1,9 @@
 $(document).ready(function() {
-    
+
+    var bookmarkBarId = '';
     var bookmarkParentId = '';
     var bookmarkResearchId = '';
+    var researchFolderName = 'research';
 
     chrome.windows.getCurrent(function(w) {
         chrome.tabs.getSelected(w.id, function (response) {
@@ -21,9 +23,10 @@ $(document).ready(function() {
             getFolders(bookmark.children);
           }
           if (String(bookmark.title).indexOf("Bookmarks Bar") == 0) {
+            bookmarkBarId = bookmark.id;
             getFolders(bookmark.children);
           }
-          if (String(bookmark.title).indexOf("research") == 0) {
+          if (String(bookmark.title).indexOf(researchFolderName) == 0) {
             bookmarkResearchId = bookmark.id;
             getFolders(bookmark.children);
           }
@@ -35,7 +38,26 @@ $(document).ready(function() {
     }
  
   function makeBookmark() {
-    if (bookmarkParentId == '') {
+    if (bookmarkResearchId == '') {
+      chrome.bookmarks.create({'parentId': bookmarkBarId,
+            'title': researchFolderName, 
+            'url': ''}, 
+        function(newFolder) {
+          console.log("added folder: " + newFolder.title);
+          chrome.bookmarks.create({'parentId': newFolder.id,
+                'title': $("#tag").val(), 
+                'url': ''}, 
+            function(newFolder2) {
+              console.log("added folder: " + newFolder2.title);
+              chrome.bookmarks.create({'parentId': newFolder2.id,
+                    'title': $("#name").val(), 
+                    'url': $("#url").val()}, 
+                function(newBookmark) {
+                  console.log("added bookmark: " + newBookmark.title);
+                });
+            });
+        });
+    } else if (bookmarkParentId == '') {
       chrome.bookmarks.create({'parentId': bookmarkResearchId,
             'title': $("#tag").val(), 
             'url': ''}, 
