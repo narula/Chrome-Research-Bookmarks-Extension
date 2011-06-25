@@ -22,15 +22,15 @@ $(document).ready(function() {
           if (bookmark.title == '') {
             getFolders(bookmark.children);
           }
-          if (String(bookmark.title).indexOf("Bookmarks Bar") == 0) {
+          if (String(bookmark.title) == "Bookmarks Bar") {
             bookmarkBarId = bookmark.id;
             getFolders(bookmark.children);
           }
-          if (String(bookmark.title).indexOf(researchFolderName) == 0) {
+          if (String(bookmark.title) == researchFolderName) {
             bookmarkResearchId = bookmark.id;
             getFolders(bookmark.children);
           }
-          if (String(bookmark.title).indexOf($('#tag').val()) == 0) {
+          if (String(bookmark.title) == $('#tag').val()) {
             bookmarkParentId = bookmark.id;
           }
         }
